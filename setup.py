@@ -5,13 +5,13 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="copyclip",
-    version="0.1.0",
-    author="Your Name",  # TODO: Replace with your name
-    author_email="your.email@example.com",  # TODO: Replace with your email
+    version="0.1.2",
+    author="Somil Jain",
+    author_email="somiljain9999@gmail.com",
     description="A CLI tool to copy code files from a directory to the clipboard",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/copyclip",  # TODO: Replace with your repository URL
+    url="https://github.com/somz22/copyclip",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 3 - Alpha",

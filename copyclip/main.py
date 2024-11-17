@@ -2,6 +2,7 @@ import os
 import re
 import argparse
 import pyperclip
+from copyclip import __version__
 
 def gather_files(root_path, ignore_patterns, use_gitignore=False, include_hidden=False):
     """Recursively gathers files from the root_path, excluding files that match any ignore pattern."""
@@ -100,28 +101,60 @@ def copy_to_clipboard(text):
         return False
 
 def main():
-    parser = argparse.ArgumentParser(description="CLI tool to copy code files from a directory to the clipboard.")
-    parser.add_argument("path", help="Root path of the directory to process")
+    parser = argparse.ArgumentParser(
+        description="""
+CopyClip - A command-line tool that helps you copy multiple code files from a directory to your clipboard.
+Perfect for sharing code snippets, preparing documentation, and especially useful when working with Large Language Models (LLMs).
+
+Example Usage:
+  Basic:
+    copyclip /path/to/directory
+  
+  With ignore patterns:
+    copyclip /path/to/directory --ignore "*.js" "*.pyc" "node_modules/*"
+  
+  With gitignore support:
+    copyclip /path/to/directory --gitignore
+  
+  Include hidden files:
+    copyclip /path/to/directory --include-hidden
+  
+  Print to console:
+    copyclip /path/to/directory --print
+        """,
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    
+    parser.add_argument(
+        "path",
+        help="Root path of the directory to process"
+    )
     parser.add_argument(
         "--ignore",
         nargs="*",
         default=[],
-        help="List of regex patterns to ignore files (e.g., *.js, .env, index*).",
+        help="List of regex patterns to ignore files (e.g., *.js, .env, index*)"
     )
     parser.add_argument(
         "--gitignore",
         action="store_true",
-        help="Also respect .gitignore patterns",
+        help="Respect .gitignore patterns when scanning files"
     )
     parser.add_argument(
         "--include-hidden",
         action="store_true",
-        help="Include hidden files and directories (starting with .)",
+        help="Include hidden files and directories (starting with .)"
     )
     parser.add_argument(
         "--print",
         action="store_true",
-        help="Print the concatenated output to console",
+        help="Print the concatenated output to console instead of copying to clipboard"
+    )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"CopyClip {__version__}",
+        help="Show program's version number and exit"
     )
     
     args = parser.parse_args()
